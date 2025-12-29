@@ -1,0 +1,31 @@
+resources:
+  quality_monitors:
+    - name: etl_data_quality_monitor
+      description: "Quality monitor for ETL pipeline data"
+      checks:
+        - name: null_value_check
+          description: "Check for null values in important columns"
+          type: null_check
+          columns:
+            - important_column
+          threshold:
+            max_null_percentage: 0.01  # Allow up to 1% nulls
+        - name: duplicate_record_check
+          description: "Check for duplicate records based on primary key"
+          type: duplicate_check
+          columns:
+            - id
+          threshold:
+            max_duplicate_percentage: 0.0  # No duplicates allowed
+      schedule:
+        cron: "0 3 * * *"  # Daily at 3 AM
+        timezone: "UTC"
+      actions:
+        - type: email
+          recipients:
+            - ${workspace.current_user.userName}
+      permissions:
+        - user_name: ${workspace.current_user.userName}
+          level: CAN_MANAGE
+        - group_name: data_engineers
+          level: CAN_VIEW

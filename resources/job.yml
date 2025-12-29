@@ -1,0 +1,38 @@
+resources:
+  jobs:
+    - name: data_processing_job
+      description: "Job to process data daily"
+      trigger:
+        # type: scheduled
+        # type: cron
+      schedule:
+        cron: "0 2 * * *" # Daily at 2 AM
+        timezone: "UTC"
+      # queue: # Optional: Specify a job queue that will be used to run the job.
+      #   existing_job_queue_name: "default_queue"
+      #   name: "default"
+      job_cluster:
+        existing_cluster_name: etl_cluster
+      # job_cluster:
+      #   new_cluster:
+      #     spark_version: "13.2.x-scala2.12"
+      #     node_type_id: "i3.xlarge"
+      #     num_workers: 4
+      #     autotermination_minutes: 30
+      # git_source:
+      #   repo_url: "<REPO_URL>"
+      #   branch: "<BRANCH_NAME>"
+      #   tag: "<TAG_NAME>"
+      # email_notifications:
+      #   on_failure:
+      #     - ${workspace.current_user.userName}
+      #   on_success:
+      #     - ${workspace.current_user.userName}
+      #   on_start:
+      #     - ${workspace.current_user.userName}
+      tasks:
+        - name: extract_transform_load
+          type: notebook
+          notebook_path: "/Workspace/Users/${workspace.current_user.userName}/notebooks/etl_pipeline"
+          cluster:
+            existing_cluster_name: etl_cluster

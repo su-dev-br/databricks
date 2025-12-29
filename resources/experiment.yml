@@ -1,0 +1,17 @@
+# resources:
+#   experiment:
+#     - name: my_experiment
+#       description: "Experiment for testing ETL pipelines"
+#       tags:
+#         project: etl_testing
+#         owner: ${workspace.current_user.userName}
+#       permissions:
+#         - user_name: ${workspace.current_user.userName}
+#           level: CAN_MANAGE
+#         - group_name: data_scientists
+#           level: CAN_VIEW
+#         - service_principal_name: experiment-sp
+#           level: CAN_RUN
+
+
+# https://docs.databricks.com/aws/en/dev-tools/bundles/resources#experiment

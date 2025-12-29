@@ -1,0 +1,25 @@
+resources:
+  volumes:
+    # - name: etl_data_volume
+    #   description: "Volume for ETL pipeline data storage"
+    #   mount_point: "/mnt/etl_data_volume"
+    #   storage:
+    #     # type: dbfs
+    #     type: s3
+    #     s3:
+    #       bucket_name: "my-etl-bucket"
+    #       prefix: "data/"
+    #       region: "us-west-2"
+    #   permissions:
+    #     - user_name: ${workspace.current_user.userName}
+    #       level: CAN_MANAGE
+    
+    my_volume_id:
+      catalog_name: main
+      name: my_volume
+      schema_name: my_schema
+      volume_type: EXTERNAL # Options: EXTERNAL, MANAGED
+      storage_location: "s3://my-bucket/my-volume/"
+      permissions:
+        - user_name: ${workspace.current_user.userName}
+          level: CAN_MANAGE

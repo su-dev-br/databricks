@@ -1,0 +1,27 @@
+resources:
+  clusters:
+    - name: etl_cluster
+      spark_version: 17.2.x-scala2.12
+      node_type_id: i3.xlarge
+      # policy_id: "0123-456789-abcd1234"
+      runtime_engine: STANDARD # Options are STANDARD or PHOTON 
+      # single_user_name: ${workspace.current_user.userName} # Run cluster as the current user.
+      autoscale:
+        min_workers: 2
+        max_workers: 8
+      autotermination_minutes: 30
+      spark_conf:
+        "spark.databricks.cluster.profile": "serverless"
+        "spark.sql.adaptive.enabled": "true"
+      # cluster_logging:
+      #   dbfs:
+      #     destination: "dbfs:/cluster-logs/etl_cluster/"
+      #   s3:
+      #     destination: "s3://my-databricks-logs/cluster-logs/etl_cluster/"
+      libraries:
+        - pypi:
+            package: "lakeflow==0.9.5"
+        - pypi:
+            package: "pandas==1.5.3"
+        - pypi:
+            package: "numpy==1.23.5"

@@ -1,0 +1,32 @@
+# resources:
+#   alerts:
+#     - name: high_error_rate
+#       display_name: High Error Rate Alert
+#       description: Alert for high error rate in ETL jobs
+#       metric: error_rate
+#       threshold: 0.05
+#       evaluation_period: 5
+#       actions:
+#         - type: email
+#           recipients:
+#             - ${workspace.current_user.userName}
+#       query:
+#         sql: SELECT 1+1
+#       evaluation:
+#         comparison_operator: EQUAL
+#         source:
+#           name: '1' 
+#         threshold:
+#           value:
+#             double_value: 2
+#       schedules:
+#         - cron: "*/10 * * * *"  # Every 10 minutes
+#           timezone: "UTC"
+#       # warehouse_id: 7235980hjsbv
+#       permissions:
+#         - user_name: ${workspace.current_user.userName}
+#           level: CAN_MANAGE
+#         - group_name: data_engineers
+#           level: CAN_VIEW
+#         - service_principal_name: alert-sp
+#           level: CAN_RUN  

@@ -1,0 +1,17 @@
+# resources:
+#   schemas:
+#     my_schema:
+#       name: test-schema
+#       grants:
+#         - principal: users
+#           privileges:
+#             - SELECT
+#         - principal: dbx-sp
+#           privileges:
+#             - CAN_MANAGE
+#       catalog_name: main
+
+
+# https://docs.databricks.com/aws/en/dev-tools/bundles/resources#grant
+# principal = user, group, or service principal
+# privileges = SELECT, MODIFY, CREATE, USAGE, READ_FILES, WRITE_FILES, EXECUTE, ALL_PRIVILEGES

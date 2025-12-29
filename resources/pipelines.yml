@@ -1,0 +1,76 @@
+# resources:
+#   pipelines:
+#     my_etl:
+#       name: my_etl
+#       catalog: ${variables.catalog}
+#       schema: ${variables.schema}
+#       serverless: true
+#       root_path: "../src/my_etl_1"
+#       # policy_id: "0123-456789-abcd1234"
+#       cluster:
+#         existing_cluster_name: etl_cluster
+#       libraries:
+#         - glob:
+#             include: ../src/my_etl_1/transformations/**
+#       environment:
+#         dependencies:
+#           # We include every dependency defined by pyproject.toml by defining an editable environment
+#           # that points to the folder where pyproject.toml is deployed.
+#           - --editable ${workspace.file_path}
+#       # configuration:
+#       #   env : dev
+#       notifications:
+#         - event: PIPELINE_FAILURE
+#           type: EMAIL
+#           to:
+#             - ${workspace.current_user.userName}
+#       # photon: true
+#       libraries:
+#         - pypi:
+#             package: "lakeflow==0.9.5"
+#         - pypi:
+#             package: "pandas==1.5.3"
+#         - pypi:
+#             package: "numpy==1.23.5"
+#         # - file:
+#         #     path: "../src/my_etl_1/dist/my_etl_1-0.1.0-py3-none-any.whl"
+#         - glob:
+#             include: ../src/my_etl_1/transformations/**
+#         # - notebook:
+#         #     path: "../notebooks/common_utils"
+
+#       ingestion_definition:
+#         connection_name: my_data_connection
+#         format: PARQUET
+#         source_configuration:
+#           catalog: 
+#             source_catalog: source_catalog
+#         table_configuration:
+#           exclude_columns:
+#             - temp_column
+#           include_columns:
+#             - important_column
+#           primary_key:
+#             - id
+#           sequence_by:
+#             - updated_at
+
+#         SchemaSpec:
+#           source_schema: source_schema
+#           destination_schema: dest_schema
+#           destination_catalog: ${variables.catalog}
+#           table_configuration:
+#             mode: OVERWRITE
+#             merge_key: id
+#         TableSpec:
+#           source_table: source_table
+#           source_schema: source_schema
+#           destination_table: dest_table
+#           destination_catalog: ${variables.catalog}
+#           destination_schema: dest_schema
+#           table_configuration:
+#             mode: OVERWRITE
+#             partition_by: date_col
+        
+
+      

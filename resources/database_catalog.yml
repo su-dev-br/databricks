@@ -1,0 +1,23 @@
+resources:
+  database_catalog:
+    - name: catalog
+      comment: "Main database catalog for the project"
+      # storage_root: "s3://my-databricks-data/catalog/"
+      # managed_location: "s3://my-databricks-data/catalog/managed/"  
+      database_name: "${bundle.target}_db"
+      properties:
+        owner: "${workspace.current_user.userName}"
+        description: "Database catalog for ${bundle.target} environment"
+      storage_configuration:
+        type: DBFS
+        dbfs_root_path: "dbfs:/databricks-data/catalog/"
+        # type: S3
+        # s3_bucket: "my-databricks-data"
+        # s3_root_prefix: "catalog/"  
+      lifecycle:
+        transition_to_cool_after_days: 30
+        transition_to_archive_after_days: 90
+        delete_after_days: 365
+      permissions:
+        - user_name: ${workspace.current_user.userName} 
+          level: CAN_MANAGE

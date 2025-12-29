@@ -1,0 +1,28 @@
+# resources:
+#   dashboards:
+#     - name: sales_performance_dashboard
+#       description: Dashboard showing sales performance metrics
+#       widgets:
+#         - type: chart
+#           title: Monthly Sales
+#           query:
+#             sql: SELECT month, SUM(sales) as total_sales FROM sales_data GROUP BY month
+#           visualization:
+#             type: bar
+#             x_axis: month
+#             y_axis: total_sales
+#         - type: chart
+#           title: Top Products
+#           query:
+#             sql: SELECT product_name, SUM(sales) as total_sales FROM sales_data GROUP BY product_name ORDER BY total_sales DESC LIMIT 10
+#           visualization:
+#             type: pie
+#             labels: product_name
+#             values: total_sales
+#       permissions:
+#         - user_name: ${workspace.current_user.userName}
+#           level: CAN_MANAGE
+#         - group_name: sales_team
+#           level: CAN_VIEW 
+#         - service_principal_name: dbx-sp
+#           level: CAN_RUN
