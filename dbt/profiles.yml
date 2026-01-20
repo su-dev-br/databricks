@@ -1,0 +1,10 @@
+databricks_profile:
+  outputs:
+    dev:
+      type: databricks
+      catalog: "{{ env_var('DBT_CATALOG', 'main') }}"
+      schema: "{{ env_var('DBT_SCHEMA', 'default') }}"
+      host: "{{ env_var('DBT_HOST') }}"
+      http_path: "{{ env_var('DBT_HTTP_PATH') }}"
+      token: "{{ env_var('DBT_TOKEN') }}"
+  target: dev

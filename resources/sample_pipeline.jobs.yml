@@ -1,0 +1,21 @@
+# resources:
+#   jobs:
+#     bronze_silver_pipeline:
+#       name: "[{{bundle.target}}] Bronze & Silver Pipeline"
+#       
+#       tasks:
+#         - task_key: generate_bronze_data
+#           python_wheel_task:
+#             package_name: lakeflow_pipelines_python
+#             entry_point: generate_bronze
+#           
+#         - task_key: run_dbt_models
+#           depends_on:
+#             - task_key: generate_bronze_data
+#           dbt_task:
+#             project_directory: ../dbt
+#             commands:
+#               - dbt run
+#             warehouse_id: 7580d778e039413e
+#             catalog: ${var.catalog}
+#             schema: ${var.schema}

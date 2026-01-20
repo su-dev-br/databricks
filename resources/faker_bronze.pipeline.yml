@@ -1,0 +1,17 @@
+resources:
+  pipelines:
+    faker_bronze:
+      name: "faker_bronze"
+      continuous: false
+      schedule:
+        quartz_cron_expression: "0 2 * * *"
+        timezone: "UTC"
+      serverless: true
+      root_path: "${workspace.file_path}/src/lakeflow_pipelines_python"
+      catalog: "dbt"
+      schema: "bronze"
+      libraries:
+        - glob:
+            include: "${workspace.file_path}/src/lakeflow_pipelines_python/"
+        - pypi:
+            package: "faker"

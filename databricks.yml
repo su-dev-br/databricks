@@ -2,13 +2,13 @@
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
   name: databricks_asset_bundle # The name of the bundle.
-  description: A Databricks asset bundle for lakehouse ETL pipelines
-  fail_on_active_runs: true # Fail deployment if there are active runs for existing jobs.
+  # description: A Databricks asset bundle for lakehouse ETL pipelines
+  # fail_on_active_runs: true # Fail deployment if there are active runs for existing jobs.
   deployment:
     # concurrent_jobs: 5 # Number of jobs to deploy concurrently. only for large bundles.
     lock:
       enabled: true # Enable deployment locking to prevent concurrent deployments.
-      timeout_minutes: 10 # Maximum time to wait for the lock.
+      # timeout_minutes: 10 # Maximum time to wait for the lock.
         
 run_as:
   user_name: ${workspace.current_user.userName} # Run jobs as the current user.
@@ -55,6 +55,8 @@ variables:
     description: The catalog to use
   schema:
     description: The schema to use
+  warehouse_id:
+    description: The SQL Warehouse ID to use for dbt
 
 targets:
   local:
@@ -66,8 +68,8 @@ targets:
     default: true # This is the default target if none is specified.     
     presets:
       name_prefix: "${workspace.current_user.short_name}_"
-      auto_pause_schedules: true # Automatically pause schedules on deployment
-      auto_pause_triggers: true  # Automatically pause triggers on deployment
+      # auto_pause_schedules: true # Automatically pause schedules on deployment
+      # auto_pause_triggers: true  # Automatically pause triggers on deployment
       # trigger_pause_status: PAUSED # Set trigger pause status to PAUSED
       # pipelines_development: true # Deploy pipelines in development mode
       # jobs_max_concurrent_runs: 10 # Limit max concurrent runs for jobs     
@@ -75,8 +77,9 @@ targets:
       host: https://dbc-b1af0c2a-6757.cloud.databricks.com
       root_path: /Workspace/Users/contactmail.br@gmail.com/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: catalog
+      catalog: main # Change to your actual catalog name (e.g., 'main' or 'hive_metastore')
       schema: ${workspace.current_user.short_name}
+      warehouse_id: 7580d778e039413e
     # scripts:
     #   post_deployment: # Scripts to run after deployment
     #     - ./scripts/post_deployment/local_setup.sh
